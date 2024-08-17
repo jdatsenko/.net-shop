@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "xeZ1YMMprLLzym1Y8233OstysYHueW7g/Id1uL0SddXDsf0Y1KgTeex6nughEUwTsej6oJYIwlIX629hxpNkRw==",
+  "dgSpecHash": "kPmRflI702ceknbWEYk44bJFcVC3R6dLGSrac16qF+msXKfFXMoUAr7XqrsfDQR3QaNgU6yiXMMI6szaDY198A==",
   "success": true,
   "projectFilePath": "C:\\Users\\dimad\\Desktop\\.net-core\\CarShop\\CarShop.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\dimad\\.nuget\\packages\\bootstrap\\5.3.3\\bootstrap.5.3.3.nupkg.sha512"
+  ],
   "logs": []
 }
