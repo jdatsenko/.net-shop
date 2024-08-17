@@ -1,7 +1,7 @@
-﻿using Shop.Models;
+﻿using CarShop.Models;
 using System.Collections.Generic;
 
-namespace Shop.Interfaces
+namespace CarShop.Interfaces
 {
     public interface ICarsCategory
     {

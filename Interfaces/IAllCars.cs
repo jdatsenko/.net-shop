@@ -1,6 +1,6 @@
-﻿using Shop.Models;
+﻿using CarShop.Models;
 
-namespace Shop.Interfaces
+namespace CarShop.Interfaces
 {
     public interface IAllCars
     {
