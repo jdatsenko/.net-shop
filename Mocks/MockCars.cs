@@ -1,7 +1,7 @@
 ﻿using CarShop.Interfaces;
 using CarShop.Models;
 
-namespace Shop.Mocks
+namespace CarShop.Mocks
 {
     public class MockCars : IAllCars
     {
@@ -32,5 +32,4 @@ namespace Shop.Mocks
             throw new NotImplementedException();
         }
     }
-    //ty nefor
 }

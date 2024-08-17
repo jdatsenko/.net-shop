@@ -2,7 +2,7 @@
 using CarShop.Models;
 using System.Globalization;
 
-namespace Shop.Mocks
+namespace CarShop.Mocks
 {
     public class MockCategory : ICarsCategory
     {

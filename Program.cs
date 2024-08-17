@@ -1,3 +1,6 @@
+using CarShop.Interfaces;
+using CarShop.Mocks;
+
 namespace CarShop
 {
     public class Program
@@ -9,6 +12,8 @@ namespace CarShop
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddMvc();
+            builder.Services.AddTransient<IAllCars, MockCars>();
+            builder.Services.AddTransient<ICarsCategory, MockCategory>();
 
             var app = builder.Build();
 
