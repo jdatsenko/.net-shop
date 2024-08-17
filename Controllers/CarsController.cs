@@ -1,4 +1,5 @@
 ﻿using CarShop.Interfaces;
+using CarShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarShop.Controllers
@@ -17,8 +18,9 @@ namespace CarShop.Controllers
         public ViewResult List()
         {
             ViewBag.Title = "Page with cars";
-            var cars = _allCars.Cars;
-            return View(cars);
+            CarsListViewModel obj = new CarsListViewModel();
+            obj.AllCars = _allCars.Cars;
+            return View(obj);
         }
     }
 
