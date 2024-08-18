@@ -1,44 +1,61 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using CarShop.Models;
 using CarShop.Interfaces;
-using CarShop.Mocks;
+using CarShop.Repository;
 
 namespace CarShop
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddMvc();
-            builder.Services.AddTransient<IAllCars, MockCars>();
-            builder.Services.AddTransient<ICarsCategory, MockCategory>();
+			// Get connection string from configuration
+			var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            var app = builder.Build();
+			// Add DbContext with SQL Server provider
+			builder.Services.AddDbContext<AppDBContent>(options =>
+				options.UseSqlServer(connectionString));	
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseStatusCodePages();
-                app.UseStaticFiles();
-                app.UseMvcWithDefaultRoute();
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
 
-            app.UseStaticFiles();
+			builder.Services.AddControllersWithViews();
+			builder.Services.AddMvc();
 
-            app.UseRouting();
+			builder.Services.AddTransient<IAllCars, CarRepository>();
+			builder.Services.AddTransient<ICarsCategory, CategoryRepository>();
 
-            app.UseAuthorization();
+			var app = builder.Build();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+			if (!app.Environment.IsDevelopment())
+			{
+				app.UseExceptionHandler("/Home/Error");
+				app.UseHsts();
+			}
 
-            app.Run();
-        }
-    }
+			app.UseStatusCodePages();
+			app.UseStaticFiles();
+
+			app.UseRouting();
+
+			app.UseAuthorization();
+
+
+			using (var scope = app.Services.CreateScope())
+			{
+				var context = scope.ServiceProvider.GetRequiredService<AppDBContent>();
+				DBObjects.Initial(context);
+			}
+
+			app.MapControllerRoute(
+				name: "default",
+				pattern: "{controller=Home}/{action=Index}/{id?}");
+
+			app.Run();
+		}
+	}
 }
